@@ -1,4 +1,4 @@
-name: Calorias CI/CD
+name: CaloriasTracker CI/CD
 
 on:
     push: 
