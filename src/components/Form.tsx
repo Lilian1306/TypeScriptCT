@@ -1,22 +1,27 @@
 import { useState, type ChangeEvent } from "react"
 import { categories } from "../data/categories"
+import { Activity } from '../types'
 
 
 export default function Form() {
 
-   const [activity, setActivity] = useState({  // Creamos un state para almacenar los datos en el localStorage
-       category: '',
+   const [activity, setActivity] = useState<Activity>({  // Creamos un state para almacenar los datos en el localStorage
+       category: 1,
        name: '',
        calorias: 0
    })
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {  // Creamoos una funcion para que nos perminta escribir en el state (escribir dentro del input o select para despues guardarlo en el state)
+      const isNumberField = ['category', 'calorias'].includes(e.target.id)
+
+      console.log(isNumberField)
+
       setActivity({
          ...activity,    //  Tomamos una copia de nuestro state antes de escribir en nuestro state
-         [e.target.id]: e.target.value
+         [e.target.id]: isNumberField ? +e.target.value : e.target.value
       })
-      console.log(e.target.id)    // e.target.id nos indicara en que elemento estamos escribiendo si es en el select o en un input
-      console.log(e.target.value) // e.target.value nos indicara mostrara que estamos escribiendo. 
+      // console.log(e.target.id)    // e.target.id nos indicara en que elemento estamos escribiendo si es en el select o en un input
+      // console.log(e.target.value) // e.target.value nos indicara mostrara que estamos escribiendo. 
    }
 
   return (
