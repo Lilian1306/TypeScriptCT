@@ -1,8 +1,14 @@
+import { useReducer } from "react"
 import Form from "./components/Form"
-
+import { ActivityReducer, initalState } from "./reducers/activity.reducer"
 
 
 function App() {
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [ state, dispatch] = useReducer(ActivityReducer, initalState)
+
+
   return (
     <>
       <header className="bg-lime-600 py-3">
@@ -15,7 +21,9 @@ function App() {
 
       <section className="bg-lime-500 py-20 px-5">
        <div className="maz-w-4xl mx-auto">
-         <Form/>
+         <Form
+            dispatch={dispatch}
+         />
        </div>
       </section>
 
