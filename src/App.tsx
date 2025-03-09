@@ -5,7 +5,7 @@ import { ActivityReducer, initalState } from "./reducers/activity.reducer"
 
 function App() {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [ state, dispatch] = useReducer(ActivityReducer, initalState)
 
 
