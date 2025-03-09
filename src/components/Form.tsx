@@ -1,9 +1,14 @@
-import { useState, type ChangeEvent } from "react"
+import { useState, type ChangeEvent, type Dispatch, type FormEvent } from "react"
 import { categories } from "../data/categories"
 import { Activity } from '../types'
+import type { ActivityActions } from "../reducers/activity.reducer"
+
+type FormProps = {
+   dispatch: Dispatch<ActivityActions>
+}
 
 
-export default function Form() {
+export default function Form({dispatch} : FormProps) {
 
    const [activity, setActivity] = useState<Activity>({  // Creamos un state para almacenar los datos en el localStorage
        category: 1,
@@ -13,8 +18,6 @@ export default function Form() {
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {  // Creamoos una funcion para que nos perminta escribir en el state (escribir dentro del input o select para despues guardarlo en el state)
       const isNumberField = ['category', 'calorias'].includes(e.target.id)
-
-      console.log(isNumberField)
 
       setActivity({
          ...activity,    //  Tomamos una copia de nuestro state antes de escribir en nuestro state
@@ -29,8 +32,17 @@ export default function Form() {
       return name.trim() !== '' && calorias > 0
    }
 
+   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+
+      dispatch({ type:  "save-activity", payload: {newActivity: activity }})
+   }
+
   return (
-    <form className="space-y-5 bg-white shadow p-10 rounded-lg">
+    <form 
+       className="space-y-5 bg-white shadow p-10 rounded-lg"
+       onSubmit={ handleSubmit }
+    >
        <div className='grid grid-cols-1 gap-3'>
          <label htmlFor="category" className="font-bold">Categoria:</label>
          <select
