@@ -7,15 +7,16 @@ type FormProps = {
    dispatch: Dispatch<ActivityActions>
 }
 
-
+const initialState = {
+   category: 1,
+   name: '',
+   calorias: 0
+}
+ 
 export default function Form({dispatch} : FormProps) {
 
-   const [activity, setActivity] = useState<Activity>({  // Creamos un state para almacenar los datos en el localStorage
-       category: 1,
-       name: '',
-       calorias: 0
-   })
-
+   const [activity, setActivity] = useState<Activity>(initialState)  // Creamos un state para almacenar los datos en el localStorage
+ 
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {  // Creamoos una funcion para que nos perminta escribir en el state (escribir dentro del input o select para despues guardarlo en el state)
       const isNumberField = ['category', 'calorias'].includes(e.target.id)
 
@@ -37,6 +38,8 @@ export default function Form({dispatch} : FormProps) {
 
       dispatch({ type:  "save-activity", payload: {newActivity: activity }})
    }
+
+   setActivity(initialState)
 
   return (
     <form 
