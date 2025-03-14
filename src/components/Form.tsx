@@ -1,11 +1,12 @@
-import { useState, type ChangeEvent, type Dispatch, type FormEvent } from "react"
+import { useState, type ChangeEvent, type Dispatch, type FormEvent, useEffect} from "react"
 import { categories } from "../data/categories"
 import { Activity } from '../types'
-import type { ActivityActions } from "../reducers/activity.reducer"
+import type { ActivityActions, ActivityState } from "../reducers/activity.reducer"
 import { v4 as uuidv4 } from 'uuid'
 
 type FormProps = {
-   dispatch: Dispatch<ActivityActions>
+   dispatch: Dispatch<ActivityActions>,
+   state: ActivityState
 }
 
 const initialState : Activity = {
@@ -14,10 +15,18 @@ const initialState : Activity = {
    name: '',
    calorias: 0
 }
+
  
-export default function Form({dispatch} : FormProps) {
+export default function Form({dispatch, state} : FormProps) {
 
    const [activity, setActivity] = useState<Activity>(initialState)  // Creamos un state para almacenar los datos en el localStorage
+
+   useEffect(() => {
+      if(state.activeId) {
+       const seledtedActivity = state.activities.filter( stateActivity =>  stateActivity.id === state.activeId)[0]
+       setActivity(seledtedActivity)
+      }
+   },[state.activeId])
  
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {  // Creamoos una funcion para que nos perminta escribir en el state (escribir dentro del input o select para despues guardarlo en el state)
       const isNumberField = ['category', 'calorias'].includes(e.target.id)

@@ -24,6 +24,7 @@ function App() {
        <div className="maz-w-4xl mx-auto">
          <Form
             dispatch={dispatch}
+            state={state}
          />
        </div>
       </section>
