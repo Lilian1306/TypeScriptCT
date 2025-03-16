@@ -37,7 +37,6 @@ export const ActivityReducer = (
   }
 
 
-
   if(action.type === 'set-activeId') {
      return {
       ...state, 
