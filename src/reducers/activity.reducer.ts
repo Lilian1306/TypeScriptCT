@@ -1,10 +1,12 @@
+
 import type { Activity } from "../types"  //Importacion del tipado de actividades
 
 
 
 export type ActivityActions = 
    { type: 'save-activity', payload: { newActivity : Activity }} |
-   { type: 'set-activeId', payload: { id: Activity['id'] }}
+   { type: 'set-activeId', payload: { id: Activity['id'] }} | 
+   { type: 'delete-activity', payload: {id: Activity['id']}}
 
 export type ActivityState  = {
    activities : Activity[],
@@ -22,6 +24,7 @@ export const ActivityReducer = (
 ) => {
 
 
+   // Codigo para guardar una actividad o comida en nuestro formulario
   if(action.type === 'save-activity') {
    let updatedActivities : Activity[ ] = []
    if(state.activeId) {
@@ -36,13 +39,21 @@ export const ActivityReducer = (
     }
   }
 
-
+// Codigo para actualizar una actividad o comida
   if(action.type === 'set-activeId') {
      return {
       ...state, 
       activeId: action.payload.id
      }
   }
+
+// Codigo para eliminar una actividad o comida
+ if(action.type === 'delete-activity'){
+   return {
+      ...state,
+      activities: state.activities.filter(activity => activity.id !== action.payload.id)
+   }
+ }
 
   return state
 }
