@@ -25,7 +25,7 @@ function App() {
           </h1>
 
           <button 
-             className="bg-gray-800 hover:bg-gray-900 text-white p-2 uppercase cursor-pointer font-bold text-sm disable:opacity-10"
+             className="bg-gray-800 hover:bg-gray-900 text-white p-2 uppercase cursor-pointer font-bold text-sm disabled:opacity-10"
              disabled={!canRestartApp()}
              onClick={() => dispatch({type: 'restart-app'})}
           >
