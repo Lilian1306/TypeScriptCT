@@ -6,7 +6,8 @@ import type { Activity } from "../types"  //Importacion del tipado de actividade
 export type ActivityActions = 
    { type: 'save-activity', payload: { newActivity : Activity }} |
    { type: 'set-activeId', payload: { id: Activity['id'] }} | 
-   { type: 'delete-activity', payload: {id: Activity['id']}}
+   { type: 'delete-activity', payload: {id: Activity['id']}} |
+   { type: 'restart-app'}
 
 export type ActivityState  = {
    activities : Activity[],
@@ -57,6 +58,14 @@ export const ActivityReducer = (
    return {
       ...state,
       activities: state.activities.filter(activity => activity.id !== action.payload.id)
+   }
+ }
+
+ // Codigo para reiniciar la app
+ if(action.type === 'restart-app') {
+   return {
+       activities: [],
+       activeId: ''
    }
  }
 
